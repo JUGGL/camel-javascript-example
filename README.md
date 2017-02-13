@@ -1,4 +1,4 @@
-# A Camel Applications Written In JavaScript With Nashorn
+# An Apache Camel Application Written In JavaScript With Nashorn
 
 ## Running
 ```bash
@@ -7,7 +7,9 @@ nasven package.json
 
 ## Requirements
 
-A Twitter developer account and the appropriate keys/secrets
+* [Nasven](https://github.com/nasven/nasven) - Nashorn Maven Interface
+* A Twitter developer account and the appropriate keys/secrets
+* Java 8
 
 twitter.properties
 ```
