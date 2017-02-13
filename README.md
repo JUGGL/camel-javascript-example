@@ -1,4 +1,4 @@
-# A Camel Applications Written In JavaScript With Nashorn
+# An Apache Camel Application Written In JavaScript With Nashorn
 
 ## Running
 ```bash
