@@ -37,8 +37,8 @@ var route = new twitterRouteBuilder() {
 
     // Create route to pull tweets from event based stream
     dsl.from(baseUrl)
-       .filter(dsl.simple('${body.isRetweet()} == false'))
-       .multicast().to('seda:tweet2db', 'seda:tweet2log');
+       .filter(dsl.simple('${body.isRetweet()} == false')) // Filter out retweets
+       .multicast().to('seda:tweet2db', 'seda:tweet2log'); // Multicast tweets to DB and logs
   }
 };
 
