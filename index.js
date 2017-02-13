@@ -17,16 +17,16 @@ var route = new twitterRouteBuilder() {
 
     // Create route to store tweets in database
     dsl.from('seda:tweet2db?multipleConsumers=true&concurrentConsumers='+dsl.getContext().getRegistry().lookupByName('db.pool'))
-       .setHeader('id', dsl.simple('${body.getId()}'))
-       .setHeader('status', dsl.simple('${body.getText()}'))
-       .setHeader('created', dsl.simple('${body.getCreatedAt().getTime()}'))
-       .setHeader('screenname', dsl.simple('${body.getUser().getScreenName()}'))
+       .setHeader('id', dsl.simple('${body.id}'))
+       .setHeader('status', dsl.simple('${body.text}'))
+       .setHeader('created', dsl.simple('${body.createdAt.time}'))
+       .setHeader('screenname', dsl.simple('${body.user.screenName}'))
        .setBody(dsl.constant('INSERT INTO tweets (id, status, created, screenname) VALUES (:?id, :?status, :?created, :?screenname)'))
        .to('jdbc:lykely?useHeadersAsParameters=true');
 
     // Create route to log every 10th tweet
     dsl.from('seda:tweet2log?multipleConsumers=true&concurrentConsumers=5')
-       .sample(10).log(dsl.simple('${body.getText()}').getText());
+       .sample(10).log('${body.text}');
 
     // Build the twitter streaming URL
     var baseUrl = 'twitter://streaming/filter?type=event&lang=en&consumerKey='+dsl.getContext().getRegistry().lookupByName('api.key')+'&';
